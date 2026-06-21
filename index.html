@@ -520,6 +520,60 @@ p{font-size:clamp(.95rem,2.5vw,1.1rem);color:var(--text-dim);max-width:600px}
   font-variant-numeric:tabular-nums;
 }
 
+.budget-highlight{
+  max-width:620px;
+  margin:3rem auto 0;
+  text-align:center;
+  background:linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border:2px solid var(--orange);
+  border-radius:var(--radius-lg);
+  padding:3rem 2rem;
+  box-shadow:0 0 40px rgba(255,107,53,.15);
+}
+.budget-label{
+  font-size:1rem;
+  color:var(--orange);
+  font-weight:800;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.budget-change{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1rem;
+  margin-bottom:1rem;
+}
+.budget-old{
+  font-size:clamp(1.8rem,5vw,2.8rem);
+  font-weight:800;
+  color:rgba(255,255,255,.45);
+  text-decoration:line-through;
+  text-decoration-color:rgba(255,107,53,.5);
+}
+.budget-arrow{
+  font-size:clamp(1.5rem,4vw,2.5rem);
+  color:var(--orange);
+  animation:pulseArrow 1.5s ease-in-out infinite;
+}
+@keyframes pulseArrow{
+  0%,100%{opacity:.6;transform:translateX(0)}
+  50%{opacity:1;transform:translateX(6px)}
+}
+.budget-new{
+  font-size:clamp(2.5rem,8vw,4.5rem);
+  font-weight:900;
+  color:var(--orange);
+  text-shadow:0 0 30px rgba(255,107,53,.4);
+}
+.budget-plus{
+  font-size:clamp(1rem,3vw,1.3rem);
+  color:rgba(255,255,255,.7);
+  font-weight:700;
+  margin-top:.5rem;
+}
+
 /* ========== 6. BEFORE/AFTER ========== */
 .benefits{text-align:center}
 
@@ -686,6 +740,7 @@ p{font-size:clamp(.95rem,2.5vw,1.1rem);color:var(--text-dim);max-width:600px}
   font-weight:800;
   font-size:clamp(1.6rem,5vw,2.5rem);
   margin-bottom:2.5rem;
+  color:#000000;
 }
 
 .cta-btn{
@@ -864,6 +919,16 @@ footer .copy{
     <div class="conclusion-card fade-in">
       <div class="big-pct" data-count="40" data-suffix="%">0%</div>
       <p>運用益だけで、現在の予算の <strong>40%相当</strong> を毎年安定的に上乗せ。</p>
+    </div>
+
+    <div class="budget-highlight fade-in">
+      <p class="budget-label">生徒会予算</p>
+      <div class="budget-change">
+        <span class="budget-old">1,000万</span>
+        <span class="budget-arrow">→</span>
+        <span class="budget-new">1,400万</span>
+      </div>
+      <p class="budget-plus">+400万円 / 年</p>
     </div>
   </div>
 </section>
