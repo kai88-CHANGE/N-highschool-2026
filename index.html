@@ -340,7 +340,7 @@ p{font-size:clamp(.95rem,2.5vw,1.1rem);color:var(--text-dim);max-width:600px}
 
 .intro .affiliation{
   font-size:1.1rem;
-  color:var(--text-light);
+  color:#000;
   margin-bottom:2rem;
 }
 
@@ -350,7 +350,7 @@ p{font-size:clamp(.95rem,2.5vw,1.1rem);color:var(--text-dim);max-width:600px}
   text-align:left;
   font-size:clamp(1.1rem,2.8vw,1.2rem);
   line-height:2;
-  color:var(--text-dim);
+  color:#000;
 }
 
 .intro .bio .hl{color:var(--orange);font-weight:800}
@@ -383,7 +383,7 @@ p{font-size:clamp(.95rem,2.5vw,1.1rem);color:var(--text-dim);max-width:600px}
 }
 
 .problem .caption{
-  color:var(--text-dim);
+  color:#000;
   font-size:clamp(.9rem,2.5vw,1.05rem);
   max-width:480px;
   margin:0 auto 3rem;
@@ -407,7 +407,7 @@ p{font-size:clamp(.95rem,2.5vw,1.1rem);color:var(--text-dim);max-width:600px}
 
 .growth-arrow{
   font-size:clamp(1.5rem,4vw,2rem);
-  color:var(--text-light);
+  color:#000;
 }
 
 .growth-pct{
@@ -428,12 +428,20 @@ p{font-size:clamp(.95rem,2.5vw,1.1rem);color:var(--text-dim);max-width:600px}
 }
 
 .chart-wrap canvas{width:100%;height:auto}
+.chart-note{
+  font-size:.7rem;
+  color:#999;
+  text-align:left;
+  margin-top:.8rem;
+  max-width:100%;
+}
 
 .problem .reflection{
   max-width:560px;
   margin:0 auto;
   text-align:left;
   line-height:2;
+  color:#000;
 }
 
 .problem .reflection .hl{color:var(--orange);font-weight:800}
@@ -864,15 +872,16 @@ footer .copy{
 
     <div class="fade-in">
       <div class="student-growth">
-        <div class="growth-num" data-count="26000" data-suffix="人">0人</div>
+        <div class="growth-num" data-count="22000" data-suffix="人">0人</div>
         <div class="growth-arrow">→</div>
-        <div class="growth-num" data-count="35000" data-suffix="人">0人</div>
+        <div class="growth-num" data-count="32000" data-suffix="人">0人</div>
       </div>
-      <div class="growth-pct fade-in" data-count="35" data-prefix="+" data-suffix="%">+0%</div>
+      <div class="growth-pct fade-in" data-count="45" data-prefix="+" data-suffix="%">+0%</div>
     </div>
 
     <div class="chart-wrap fade-in">
       <canvas id="problemChart" width="560" height="280" aria-label="生徒数と予算の推移グラフ" role="img"></canvas>
+      <p class="chart-note">※いずれも各期の生徒会メンバーが任命され、活動をスタートした「その月」の時点での公式発表の生徒数です。</p>
     </div>
 
     <div class="reflection fade-in">
@@ -1164,9 +1173,9 @@ footer .copy{
     var W = rect.width;
     var H = rect.height;
 
-    var periods = ['第2期','第3期','第4期'];
-    var students = [26000,30000,35000];
-    var budget = [10,10,10];
+    var periods = ['第1期','第2期','第3期','第4期'];
+    var students = [22000,26000,30000,32000];
+    var budget = [10,10,10,10];
 
     var pad2 = {top:30, right:55, bottom:40, left:55};
     var chartW = W - pad2.left - pad2.right;
