@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生徒会選挙2026 — [YOUR_NAME]</title>
+
+<!--
+  ============================================
+  🔧 プレースホルダー一覧（差し替え箇所）
+  ============================================
+  [YOUR_NAME]   → あなたの名前（例：田中太郎）
+  [HOBBY]       → 趣味（例：ゲーム開発）
+  [ACHIEVEMENT] → 実績（例：全国大会出場）
+  [SLACK_URL]   → Slackの招待リンクURL
+  ./me.jpg      → プロフィール写真のパス
+  [X_URL]       → X（Twitter）のプロフィールURL
+  [INSTAGRAM_URL] → InstagramのプロフィールURL
+  カルーセル内の画像 → 各カードの背景画像URL
+  ============================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;800&family=Noto+Sans+JP:wght@300;800&display=swap" rel="stylesheet">
+
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root{
+    --bg:#0a0a0a;
+    --text:#f5f5f7;
+    --text-dim:#888;
+    --blue:#4a7cff;
+    --purple:#a855f7;
+    --gold:#f0b000;
+    --neon:#39ff14;
+    --radius:1.5rem;
+    --radius-lg:2rem;
+  }
+
+  html{
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;
+  }
+
+  body{
+    font-family:'Inter','Noto Sans JP',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    font-weight:300;
+    line-height:1.7;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- utility ---------- */
+  .section-inner{
+    max-width:960px;
+    margin:0 auto;
+    padding:0 1.5rem;
+  }
+
+  section{
+    padding:10rem 0;
+    position:relative;
+  }
+
+  .fade-in{
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity .8s cubic-bezier(.25,.46,.45,.94),
+               transform .8s cubic-bezier(.25,.46,.45,.94);
+  }
+  .fade-in.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    .fade-in{opacity:1;transform:none;transition:none}
+    .hero-bg{animation:none!important}
+    .scroll-hint{animation:none!important}
+  }
+
+  h2{
+    font-weight:800;
+    font-size:clamp(1.8rem,5vw,3rem);
+    line-height:1.2;
+    margin-bottom:2rem;
+  }
+
+  h3{
+    font-weight:800;
+    font-size:clamp(1.2rem,3vw,1.6rem);
+    margin-bottom:1rem;
+  }
+
+  p{
+    font-size:clamp(1rem,2.5vw,1.15rem);
+    color:#ccc;
+    max-width:640px;
+  }
+
+  strong{font-weight:800;color:var(--text)}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    padding:2rem 1.5rem;
+  }
+
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg,#1a1a4e,#2d1b69,#0a0a2e,#1b3a6b);
+    background-size:400% 400%;
+    animation:gradientShift 12s ease infinite;
+    z-index:0;
+    opacity:.6;
+  }
+
+  @keyframes gradientShift{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+
+  .hero-content{position:relative;z-index:1}
+
+  .hero h1{
+    font-weight:800;
+    font-size:clamp(2rem,7vw,4.5rem);
+    line-height:1.15;
+    margin-bottom:1.5rem;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+
+  .hero .sub{
+    font-size:clamp(1rem,3vw,1.4rem);
+    color:#aaa;
+    font-weight:300;
+    margin:0 auto;
+  }
+
+  .scroll-hint{
+    position:absolute;
+    bottom:2rem;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:.85rem;
+    color:#666;
+    animation:bounce 2s infinite;
+    z-index:1;
+  }
+
+  @keyframes bounce{
+    0%,100%{transform:translateX(-50%) translateY(0)}
+    50%{transform:translateX(-50%) translateY(8px)}
+  }
+
+  /* ---------- INTRO ---------- */
+  .intro{text-align:center}
+
+  .intro .photo{
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid rgba(255,255,255,.1);
+    margin:0 auto 2rem;
+    display:block;
+    background:#1a1a1a;
+  }
+
+  .intro .name{
+    font-weight:800;
+    font-size:clamp(2rem,5vw,3rem);
+    margin-bottom:1.5rem;
+  }
+
+  .tags{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:.6rem;
+    margin-bottom:2.5rem;
+  }
+
+  .tag{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+    padding:.5rem 1rem;
+    border-radius:999px;
+    font-size:.85rem;
+    color:#ccc;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    white-space:nowrap;
+  }
+
+  .intro .bio{
+    max-width:600px;
+    margin:0 auto;
+    text-align:left;
+    font-size:clamp(.95rem,2.5vw,1.1rem);
+    line-height:1.9;
+  }
+
+  /* ---------- PROBLEM ---------- */
+  .problem{text-align:center}
+
+  .big-number{
+    font-weight:800;
+    font-size:clamp(2.5rem,10vw,6rem);
+    color:var(--gold);
+    margin-bottom:1rem;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .problem .caption{
+    color:#aaa;
+    font-size:clamp(.95rem,2.5vw,1.15rem);
+    margin:0 auto 3rem;
+    max-width:520px;
+  }
+
+  .chart-container{
+    max-width:600px;
+    margin:0 auto 3rem;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:var(--radius-lg);
+    padding:2rem 1.5rem 1.5rem;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+
+  .chart-container canvas{
+    width:100%;
+    height:auto;
+  }
+
+  .problem .confession{
+    max-width:600px;
+    margin:2rem auto;
+    text-align:left;
+  }
+
+  .problem .punchline{
+    font-weight:800;
+    font-size:clamp(1.5rem,4vw,2.5rem);
+    margin-top:2rem;
+    color:var(--text);
+  }
+
+  /* ---------- SOLUTION / FUND ---------- */
+  .fund{text-align:center}
+
+  .fund h2{
+    color:var(--gold);
+  }
+
+  .steps{
+    display:grid;
+    gap:1.5rem;
+    max-width:600px;
+    margin:3rem auto;
+  }
+
+  .step-card{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius-lg);
+    padding:2rem 1.5rem;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    text-align:left;
+    transition:transform .3s ease;
+  }
+
+  .step-card:hover{transform:scale(1.02)}
+
+  .step-num{
+    font-size:.75rem;
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:.15em;
+    margin-bottom:.5rem;
+    font-weight:800;
+  }
+
+  .step-card h3{font-size:clamp(1.1rem,3vw,1.4rem);margin-bottom:.5rem}
+  .step-card p{font-size:.95rem;color:#999}
+
+  .formula{
+    max-width:600px;
+    margin:3rem auto;
+    background:rgba(240,176,0,.06);
+    border:1px solid rgba(240,176,0,.15);
+    border-radius:var(--radius-lg);
+    padding:2.5rem 1.5rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:1rem;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+  }
+
+  .formula-item{
+    text-align:center;
+  }
+
+  .formula-num{
+    font-weight:800;
+    font-size:clamp(1.2rem,4vw,2rem);
+    color:var(--gold);
+    font-variant-numeric:tabular-nums;
+  }
+
+  .formula-label{
+    font-size:.75rem;
+    color:#888;
+    margin-top:.25rem;
+  }
+
+  .formula-op{
+    font-size:clamp(1.5rem,4vw,2.5rem);
+    color:#555;
+    font-weight:300;
+  }
+
+  .bar-chart-container{
+    max-width:600px;
+    margin:3rem auto 0;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:var(--radius-lg);
+    padding:2rem 1.5rem 1.5rem;
+  }
+
+  .bar-chart-container canvas{
+    width:100%;
+    height:auto;
+  }
+
+  /* ---------- CAROUSEL ---------- */
+  .carousel-section{
+    padding:10rem 0;
+  }
+
+  .carousel-section h2{
+    padding:0 1.5rem;
+    max-width:960px;
+    margin:0 auto 3rem;
+  }
+
+  .carousel{
+    display:flex;
+    gap:1.5rem;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding:0 1.5rem 2rem;
+    scrollbar-width:none;
+  }
+  .carousel::-webkit-scrollbar{display:none}
+
+  .carousel-card{
+    flex:0 0 min(85vw,320px);
+    scroll-snap-align:start;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    position:relative;
+    aspect-ratio:3/4;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    transition:transform .3s ease;
+  }
+
+  .carousel-card:hover{transform:scale(1.02)}
+
+  .carousel-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    opacity:.5;
+  }
+
+  .carousel-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.85) 20%,transparent 60%);
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:1.5rem;
+  }
+
+  .carousel-emoji{font-size:2.5rem;margin-bottom:.5rem}
+
+  .carousel-title{
+    font-weight:800;
+    font-size:1.2rem;
+    margin-bottom:.5rem;
+  }
+
+  .carousel-price{
+    font-size:1rem;
+    color:#ccc;
+  }
+
+  .carousel-price .old{
+    text-decoration:line-through;
+    color:#888;
+    margin-right:.5rem;
+  }
+
+  .carousel-price .new{
+    color:var(--neon);
+    font-weight:800;
+  }
+
+  /* ---------- LOUNGE ---------- */
+  .lounge h2{
+    text-align:center;
+    color:var(--neon);
+  }
+
+  .pain-points{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.5rem;
+    max-width:600px;
+    margin:3rem auto;
+  }
+
+  @media(max-width:540px){
+    .pain-points{grid-template-columns:1fr}
+  }
+
+  .pain-card{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius-lg);
+    padding:2rem 1.5rem;
+    text-align:center;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+  }
+
+  .pain-card .emoji{font-size:2rem;margin-bottom:1rem}
+  .pain-card p{font-size:.95rem;color:#aaa;margin:0 auto}
+
+  .lounge .solution-text{
+    text-align:center;
+    font-weight:800;
+    font-size:clamp(1.3rem,4vw,2rem);
+    margin:3rem auto;
+    color:var(--text);
+  }
+
+  .features{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1rem;
+    max-width:600px;
+    margin:2rem auto 3rem;
+  }
+
+  @media(max-width:540px){
+    .features{grid-template-columns:1fr}
+  }
+
+  .feature-item{
+    text-align:center;
+    padding:1.5rem 1rem;
+    background:rgba(57,255,20,.04);
+    border:1px solid rgba(57,255,20,.1);
+    border-radius:var(--radius);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+
+  .feature-item .icon{font-size:2rem;margin-bottom:.75rem}
+  .feature-item .label{font-size:.9rem;color:#ccc;font-weight:800}
+
+  /* lounge mockup */
+  .mockup{
+    max-width:500px;
+    margin:0 auto;
+    background:#111;
+    border:1px solid rgba(57,255,20,.15);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+  }
+
+  .mockup-header{
+    background:rgba(57,255,20,.06);
+    padding:.75rem 1rem;
+    display:flex;
+    align-items:center;
+    gap:.75rem;
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }
+
+  .mockup-dot{
+    width:10px;height:10px;border-radius:50%;
+  }
+  .mockup-dot.r{background:#ff5f56}
+  .mockup-dot.y{background:#ffbd2e}
+  .mockup-dot.g{background:#27c93f}
+
+  .mockup-title{
+    font-size:.75rem;
+    color:#888;
+    margin-left:.5rem;
+  }
+
+  .mockup-body{
+    padding:1.5rem;
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+  }
+
+  .mockup-msg{
+    display:flex;
+    align-items:flex-start;
+    gap:.75rem;
+  }
+
+  .mockup-avatar{
+    width:32px;height:32px;border-radius:50%;
+    flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;
+    color:#fff;
+  }
+
+  .mockup-bubble{
+    background:rgba(255,255,255,.06);
+    border-radius:var(--radius) var(--radius) var(--radius) .25rem;
+    padding:.75rem 1rem;
+    font-size:.85rem;
+    color:#ccc;
+    max-width:280px;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta-section{
+    text-align:center;
+    padding:12rem 1.5rem;
+  }
+
+  .cta-section h2{
+    font-size:clamp(2rem,6vw,3.5rem);
+    margin-bottom:1.5rem;
+  }
+
+  .cta-section .sub{
+    color:#aaa;
+    font-size:clamp(.95rem,2.5vw,1.15rem);
+    max-width:520px;
+    margin:0 auto 3rem;
+  }
+
+  .cta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:.75rem;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:#fff;
+    font-weight:800;
+    font-size:clamp(1.1rem,3vw,1.3rem);
+    padding:1.2rem 3rem;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .2s ease, box-shadow .3s ease;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .cta-btn:hover{
+    transform:scale(1.03);
+    box-shadow:0 0 40px rgba(74,124,255,.4),0 0 80px rgba(168,85,247,.2);
+  }
+
+  .cta-btn:active{
+    transform:scale(.98);
+  }
+
+  .cta-credit{
+    margin-top:3rem;
+    font-size:.8rem;
+    color:#555;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;
+    padding:3rem 1.5rem;
+    border-top:1px solid rgba(255,255,255,.06);
+  }
+
+  .footer-socials{
+    display:flex;
+    justify-content:center;
+    gap:1.5rem;
+    margin-bottom:1.5rem;
+  }
+
+  .footer-socials a{
+    color:#555;
+    text-decoration:none;
+    font-size:.85rem;
+    transition:color .2s;
+  }
+
+  .footer-socials a:hover{color:var(--text)}
+
+  footer .copy{
+    font-size:.75rem;
+    color:#444;
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== 1. HERO ========== -->
+<section class="hero" aria-label="ヒーロー">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-content fade-in">
+    <h1>生徒会予算を、<br>1000万から、億へ。</h1>
+    <p class="sub">あなたの交通費は、もう自腹じゃない。</p>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">scroll ↓</div>
+</section>
+
+<!-- ========== 2. 自己紹介 ========== -->
+<section class="intro" aria-label="自己紹介">
+  <div class="section-inner">
+    <!-- 📷 プロフィール写真：./me.jpg を差し替えてください -->
+    <img src="./me.jpg" alt="[YOUR_NAME]のプロフィール写真" class="photo fade-in" loading="lazy">
+
+    <div class="fade-in">
+      <p class="name">[YOUR_NAME]</p>
+    </div>
+
+    <div class="tags fade-in">
+      <span class="tag">🎓 元・中学校生徒会長</span>
+      <span class="tag">💼 バイト3回落ち</span>
+      <span class="tag">🎮 趣味：[HOBBY]</span>
+      <span class="tag">🏆 実績：[ACHIEVEMENT]</span>
+      <span class="tag">😤 こだわり：前例を作ること</span>
+    </div>
+
+    <p class="bio fade-in">
+      はじめまして。中学では生徒会長をやってました。そこで学んだのは、「本気で変えたいことほど、1期じゃ終わらない」ってこと。バイトは3回落ちたし、部活でも特に目立つ成績はない。でも、「この学校の予算、10年間ずっと据え置きっておかしくない？」って違和感だけはずっと持ってた。周りに言ったら「それ無理でしょ」って笑われた。笑われたけど、調べたら方法はあった。僕に足りないのは実績じゃなくて、一歩目を踏み出す勇気だった。だから今、ここに立ってます。前例がないなら、僕が作る。
+    </p>
+  </div>
+</section>
+
+<!-- ========== 3. 問題提起 ========== -->
+<section class="problem" aria-label="問題提起">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="big-number" data-count="10000000" data-prefix="¥">¥0</div>
+      <p class="caption">生徒数は増えているのに、予算は10年間ずっと1000万円。</p>
+    </div>
+
+    <div class="chart-container fade-in">
+      <canvas id="problemChart" width="560" height="300" aria-label="生徒数と予算の推移グラフ" role="img"></canvas>
+    </div>
+
+    <div class="fade-in">
+      <p class="confession">
+        過去にこれを公約にして当選した先輩でさえ、変えられなかった。学校側との交渉は何度も行われたけど、結局「前例がない」の一言で跳ね返された。だから、たぶん僕も今期では無理。
+      </p>
+      <p class="punchline">でも、前例は作れる。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 4. 解決策 — 1億円ファンド ========== -->
+<section class="fund" aria-label="1億円ファンド構想">
+  <div class="section-inner">
+    <h2 class="fade-in">公約その1：<br>億円ファンドを作る</h2>
+
+    <div class="steps">
+      <div class="step-card fade-in">
+        <div class="step-num">Step 1</div>
+        <h3>企業から1億円を調達</h3>
+        <p>教育支援に関心のある企業・OBから基金を募る。寄付型と投資型の両面で交渉。</p>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-num">Step 2</div>
+        <h3>年利4%で運用</h3>
+        <p>安全性の高いインデックスファンドで長期運用。元本は取り崩さない。</p>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-num">Step 3</div>
+        <h3>毎年400万円を予算に</h3>
+        <p>運用益だけで、現在の予算の40%相当を毎年安定的に上乗せ。</p>
+      </div>
+    </div>
+
+    <div class="formula fade-in">
+      <div class="formula-item">
+        <div class="formula-num" data-count="100000000" data-prefix="¥">¥0</div>
+        <div class="formula-label">基金</div>
+      </div>
+      <div class="formula-op">×</div>
+      <div class="formula-item">
+        <div class="formula-num">4%</div>
+        <div class="formula-label">年利</div>
+      </div>
+      <div class="formula-op">=</div>
+      <div class="formula-item">
+        <div class="formula-num" data-count="4000000" data-prefix="¥">¥0</div>
+        <div class="formula-label">/ 年</div>
+      </div>
+    </div>
+
+    <div class="bar-chart-container fade-in">
+      <canvas id="barChart" width="560" height="300" aria-label="予算推移の棒グラフ" role="img"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5. 400万で何ができる？ ========== -->
+<section class="carousel-section" aria-label="400万円の使い道">
+  <div class="section-inner">
+    <h2 class="fade-in">交通費、修学旅行、合宿。<br>ぜんぶ無料に。</h2>
+  </div>
+
+  <div class="carousel fade-in">
+    <!-- 📷 各カードの画像を差し替えてください -->
+    <article class="carousel-card">
+      <img src="https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=400&h=500&fit=crop" alt="飛行機" loading="lazy">
+      <div class="carousel-overlay">
+        <div class="carousel-emoji">✈️</div>
+        <div class="carousel-title">修学旅行の渡航費</div>
+        <div class="carousel-price"><span class="old">¥80,000</span><span class="new">¥0</span></div>
+      </div>
+    </article>
+
+    <article class="carousel-card">
+      <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=500&fit=crop" alt="ホテル" loading="lazy">
+      <div class="carousel-overlay">
+        <div class="carousel-emoji">🏨</div>
+        <div class="carousel-title">合宿の宿泊費</div>
+        <div class="carousel-price"><span class="old">¥35,000</span><span class="new">¥0</span></div>
+      </div>
+    </article>
+
+    <article class="carousel-card">
+      <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=500&fit=crop" alt="新幹線" loading="lazy">
+      <div class="carousel-overlay">
+        <div class="carousel-emoji">🚄</div>
+        <div class="carousel-title">部活遠征の交通費</div>
+        <div class="carousel-price"><span class="old">¥25,000</span><span class="new">¥0</span></div>
+      </div>
+    </article>
+
+    <article class="carousel-card">
+      <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&h=500&fit=crop" alt="イベント" loading="lazy">
+      <div class="carousel-overlay">
+        <div class="carousel-emoji">🎫</div>
+        <div class="carousel-title">イベント参加費</div>
+        <div class="carousel-price"><span class="old">¥12,000</span><span class="new">¥0</span></div>
+      </div>
+    </article>
+
+    <article class="carousel-card">
+      <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=500&fit=crop" alt="弁当" loading="lazy">
+      <div class="carousel-overlay">
+        <div class="carousel-emoji">🍱</div>
+        <div class="carousel-title">弁当代</div>
+        <div class="carousel-price"><span class="old">¥500/日</span><span class="new">¥0</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ========== 6. 24時間ネットラウンジ ========== -->
+<section class="lounge" aria-label="24時間ネットラウンジ">
+  <div class="section-inner">
+    <h2 class="fade-in">学校に、<br>24時間開いてる場所を。</h2>
+
+    <div class="pain-points fade-in">
+      <div class="pain-card">
+        <div class="emoji">🏠</div>
+        <h3>通学してない生徒</h3>
+        <p>クラスに居場所がない</p>
+      </div>
+      <div class="pain-card">
+        <div class="emoji">🌙</div>
+        <h3>通学してる生徒</h3>
+        <p>夜、ひとりの時間が長い</p>
+      </div>
+    </div>
+
+    <p class="solution-text fade-in">擬似教室を、ネット上に。</p>
+
+    <div class="features fade-in">
+      <div class="feature-item">
+        <div class="icon">💬</div>
+        <div class="label">リアルタイム<br>チャット</div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">🎥</div>
+        <div class="label">ビデオルーム<br>(自習・雑談)</div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">📚</div>
+        <div class="label">質問掲示板</div>
+      </div>
+    </div>
+
+    <div class="mockup fade-in">
+      <div class="mockup-header">
+        <div class="mockup-dot r"></div>
+        <div class="mockup-dot y"></div>
+        <div class="mockup-dot g"></div>
+        <span class="mockup-title">Night Lounge — #general</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-msg">
+          <div class="mockup-avatar" style="background:#4a7cff">K</div>
+          <div class="mockup-bubble">明日の数学、範囲どこまでだっけ？</div>
+        </div>
+        <div class="mockup-msg">
+          <div class="mockup-avatar" style="background:#a855f7">M</div>
+          <div class="mockup-bubble">p.52〜68だよ！一緒にやる？</div>
+        </div>
+        <div class="mockup-msg">
+          <div class="mockup-avatar" style="background:var(--neon);color:#000">Y</div>
+          <div class="mockup-bubble">ビデオルーム開いたから来て〜</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 7. ビジョン & CTA ========== -->
+<section class="cta-section" aria-label="ビジョンと投票呼びかけ">
+  <div class="section-inner">
+    <h2 class="fade-in">世界一の学校を、<br>一緒に作ろう。</h2>
+    <p class="sub fade-in">投票は1人1票。あなたの1票が、来年以降の生徒全員の予算を変えます。</p>
+
+    <!-- 🔗 [SLACK_URL] を実際のSlack招待リンクに差し替えてください -->
+    <a href="[SLACK_URL]" class="cta-btn fade-in">
+      Slackで合流する →
+    </a>
+
+    <p class="cta-credit fade-in">@[YOUR_NAME] / 生徒会選挙2026</p>
+  </div>
+</section>
+
+<!-- ========== 8. FOOTER ========== -->
+<footer>
+  <div class="footer-socials">
+    <!-- 🔗 SNS URLを差し替えてください -->
+    <a href="[X_URL]" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">𝕏</a>
+    <a href="[INSTAGRAM_URL]" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+  </div>
+  <p class="copy">&copy; 2026 [YOUR_NAME] — 生徒会選挙キャンペーン</p>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  // ---- IntersectionObserver: fade-in ----
+  const faders = document.querySelectorAll('.fade-in');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(prefersReduced){
+    faders.forEach(el => el.classList.add('visible'));
+  } else {
+    const obsOptions = { threshold: 0.15, rootMargin: '0px 0px -40px 0px' };
+    const fadeObs = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, obsOptions);
+    faders.forEach(el => fadeObs.observe(el));
+  }
+
+  // ---- Count-up animation ----
+  function easeOutQuart(t){ return 1 - Math.pow(1 - t, 4); }
+
+  function formatNumber(n, prefix){
+    return (prefix || '') + n.toLocaleString('ja-JP');
+  }
+
+  function animateCount(el){
+    const target = parseInt(el.dataset.count, 10);
+    const prefix = el.dataset.prefix || '';
+    if(!target) return;
+
+    const duration = 2000;
+    let start = null;
+
+    function step(ts){
+      if(!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const val = Math.floor(easeOutQuart(progress) * target);
+      el.textContent = formatNumber(val, prefix);
+      if(progress < 1) requestAnimationFrame(step);
+      else el.textContent = formatNumber(target, prefix);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const countEls = document.querySelectorAll('[data-count]');
+  if(prefersReduced){
+    countEls.forEach(el => {
+      const target = parseInt(el.dataset.count, 10);
+      el.textContent = formatNumber(target, el.dataset.prefix || '');
+    });
+  } else {
+    const countObs = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          animateCount(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    countEls.forEach(el => countObs.observe(el));
+  }
+
+  // ---- Charts ----
+  function drawProblemChart(){
+    const canvas = document.getElementById('problemChart');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    const W = rect.width;
+    const H = rect.height;
+
+    const years = ['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025','2026'];
+    const students = [800,850,900,920,950,980,1020,1060,1100,1150,1200];
+    const budget =   [10,10,10,10,10,10,10,10,10,10,10];
+
+    const pad = {top:30, right:50, bottom:40, left:50};
+    const chartW = W - pad.left - pad.right;
+    const chartH = H - pad.top - pad.bottom;
+
+    ctx.fillStyle = '#555';
+    ctx.font = '11px Inter, sans-serif';
+    ctx.textAlign = 'center';
+
+    years.forEach((y, i) => {
+      const x = pad.left + (i / (years.length - 1)) * chartW;
+      if(i % 2 === 0) ctx.fillText(y, x, H - pad.bottom + 20);
+    });
+
+    // Y axis — students (left)
+    ctx.textAlign = 'right';
+    const sMax = 1400;
+    for(let v = 0; v <= sMax; v += 400){
+      const y = pad.top + chartH - (v / sMax) * chartH;
+      ctx.fillStyle = '#444';
+      ctx.fillText(v.toString(), pad.left - 8, y + 4);
+      ctx.strokeStyle = 'rgba(255,255,255,.04)';
+      ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+    }
+
+    // Y axis — budget (right)
+    ctx.textAlign = 'left';
+    const bMax = 20;
+    for(let v = 0; v <= bMax; v += 5){
+      const y = pad.top + chartH - (v / bMax) * chartH;
+      ctx.fillStyle = '#444';
+      ctx.fillText(v + 'M', W - pad.right + 8, y + 4);
+    }
+
+    // draw lines
+    function drawLine(data, max, color){
+      ctx.beginPath();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.5;
+      ctx.lineJoin = 'round';
+      data.forEach((v, i) => {
+        const x = pad.left + (i / (data.length - 1)) * chartW;
+        const y = pad.top + chartH - (v / max) * chartH;
+        if(i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // dots
+      data.forEach((v, i) => {
+        const x = pad.left + (i / (data.length - 1)) * chartW;
+        const y = pad.top + chartH - (v / max) * chartH;
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+      });
+    }
+
+    drawLine(students, sMax, '#4a7cff');
+    drawLine(budget, bMax, '#f0b000');
+
+    // legend
+    ctx.font = '11px Inter, sans-serif';
+    const legendY = 14;
+    ctx.fillStyle = '#4a7cff';
+    ctx.fillRect(pad.left, legendY - 6, 12, 3);
+    ctx.fillText('生徒数', pad.left + 18, legendY);
+
+    ctx.fillStyle = '#f0b000';
+    ctx.fillRect(pad.left + 80, legendY - 6, 12, 3);
+    ctx.fillText('予算 (百万円)', pad.left + 98, legendY);
+  }
+
+  function drawBarChart(){
+    const canvas = document.getElementById('barChart');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    const W = rect.width;
+    const H = rect.height;
+
+    const years = ['現状','1年後','2年後','3年後','4年後','5年後'];
+    const base =  [10, 10, 10, 10, 10, 10];
+    const fund =  [0, 4, 4, 4, 4, 4];
+
+    const pad = {top:20, right:20, bottom:40, left:50};
+    const chartW = W - pad.left - pad.right;
+    const chartH = H - pad.top - pad.bottom;
+    const maxVal = 18;
+    const barW = chartW / years.length * 0.5;
+    const gap = chartW / years.length;
+
+    // grid
+    ctx.font = '11px Inter, sans-serif';
+    ctx.textAlign = 'right';
+    for(let v = 0; v <= maxVal; v += 4){
+      const y = pad.top + chartH - (v / maxVal) * chartH;
+      ctx.fillStyle = '#444';
+      ctx.fillText(v + 'M', pad.left - 8, y + 4);
+      ctx.strokeStyle = 'rgba(255,255,255,.04)';
+      ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+    }
+
+    ctx.textAlign = 'center';
+    years.forEach((label, i) => {
+      const cx = pad.left + i * gap + gap / 2;
+      const bH = (base[i] / maxVal) * chartH;
+      const fH = (fund[i] / maxVal) * chartH;
+      const totalH = bH + fH;
+      const y = pad.top + chartH - totalH;
+
+      // base bar
+      ctx.fillStyle = 'rgba(240,176,0,.3)';
+      ctx.beginPath();
+      ctx.roundRect(cx - barW/2, pad.top + chartH - bH, barW, bH, [0,0,4,4]);
+      ctx.fill();
+
+      // fund bar
+      if(fund[i] > 0){
+        ctx.fillStyle = 'rgba(240,176,0,.8)';
+        ctx.beginPath();
+        ctx.roundRect(cx - barW/2, y, barW, fH, [4,4,0,0]);
+        ctx.fill();
+      }
+
+      // label
+      ctx.fillStyle = '#555';
+      ctx.fillText(label, cx, H - pad.bottom + 20);
+
+      // value
+      ctx.fillStyle = '#aaa';
+      ctx.fillText((base[i]+fund[i]) + 'M', cx, y - 6);
+    });
+
+    // legend
+    ctx.font = '11px Inter, sans-serif';
+    const lx = pad.left;
+    ctx.fillStyle = 'rgba(240,176,0,.3)';
+    ctx.fillRect(lx, 10, 12, 10);
+    ctx.fillStyle = '#888';
+    ctx.textAlign = 'left';
+    ctx.fillText('既存予算', lx + 16, 18);
+
+    ctx.fillStyle = 'rgba(240,176,0,.8)';
+    ctx.fillRect(lx + 90, 10, 12, 10);
+    ctx.fillStyle = '#888';
+    ctx.fillText('ファンド運用益', lx + 106, 18);
+  }
+
+  // draw charts when visible
+  let chartDrawn = { problem: false, bar: false };
+
+  const chartObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(!entry.isIntersecting) return;
+      if(entry.target.id === 'problemChart' && !chartDrawn.problem){
+        drawProblemChart();
+        chartDrawn.problem = true;
+      }
+      if(entry.target.id === 'barChart' && !chartDrawn.bar){
+        drawBarChart();
+        chartDrawn.bar = true;
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const pc = document.getElementById('problemChart');
+  const bc = document.getElementById('barChart');
+  if(pc) chartObs.observe(pc);
+  if(bc) chartObs.observe(bc);
+
+  // redraw on resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      chartDrawn.problem = false;
+      chartDrawn.bar = false;
+      drawProblemChart();
+      drawBarChart();
+      chartDrawn.problem = true;
+      chartDrawn.bar = true;
+    }, 200);
+  });
+
+})();
+</script>
+
+</body>
+</html>
