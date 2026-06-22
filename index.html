@@ -51,6 +51,7 @@ body{
   line-height:1.7;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
+  padding-top:64px;
 }
 
 .section-inner{
@@ -104,50 +105,97 @@ p{font-size:clamp(.95rem,2.5vw,1.1rem);color:#000;max-width:600px}
 
 .orange{color:var(--orange)}
 
-/* ========== 0. COUNTDOWN (inside hero) ========== */
-.countdown-block{
-  margin-top:3rem;
+/* ========== 0. FIXED COUNTDOWN HEADER ========== */
+.countdown-header{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:1000;
+  background:linear-gradient(135deg, #FF6B35 0%, #FF8C42 50%, #FFA94D 100%);
+  box-shadow:0 4px 20px rgba(255,107,53,.35);
+  padding:.6rem 1rem;
   text-align:center;
+}
+
+.countdown-header-inner{
+  max-width:880px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(.8rem,2vw,1.5rem);
+  flex-wrap:wrap;
+}
+
+.countdown-header-label{
+  font-weight:800;
+  font-size:clamp(.7rem,1.8vw,.9rem);
+  color:rgba(255,255,255,.9);
+  letter-spacing:.1em;
+  white-space:nowrap;
 }
 
 .countdown-timer{
   display:flex;
-  justify-content:center;
-  gap:clamp(.5rem,2vw,1rem);
-  margin-bottom:2rem;
-  flex-wrap:wrap;
+  align-items:center;
+  gap:clamp(.3rem,1vw,.6rem);
+  flex-wrap:nowrap;
 }
 
 .countdown-unit{
-  background:var(--white);
-  border:1px solid var(--orange-border);
-  border-radius:var(--radius);
-  padding:1.2rem 1rem;
-  min-width:clamp(70px,18vw,90px);
-  box-shadow:0 2px 12px rgba(0,0,0,.04);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:12px;
+  padding:.4rem .6rem;
+  min-width:clamp(48px,12vw,60px);
 }
 
 .countdown-num{
   font-weight:800;
-  font-size:clamp(1.8rem,5vw,2.8rem);
-  color:var(--orange);
+  font-size:clamp(1.2rem,3.5vw,1.6rem);
+  color:#fff;
   font-variant-numeric:tabular-nums;
   line-height:1.1;
+  text-shadow:0 1px 4px rgba(0,0,0,.15);
+}
+
+.countdown-sep{
+  font-weight:800;
+  font-size:clamp(1rem,2.5vw,1.3rem);
+  color:rgba(255,255,255,.7);
+  margin:0 -.1rem;
+  align-self:center;
 }
 
 .countdown-label{
-  font-size:.7rem;
-  color:var(--text-light);
-  margin-top:.25rem;
+  font-size:.55rem;
+  color:rgba(255,255,255,.75);
+  margin-top:.1rem;
   font-weight:300;
   letter-spacing:.05em;
+  text-transform:uppercase;
 }
 
 .countdown-ended{
   font-weight:800;
-  font-size:clamp(1.2rem,3vw,1.6rem);
-  color:var(--orange);
-  padding:2rem;
+  font-size:clamp(1rem,2.5vw,1.3rem);
+  color:#fff;
+  padding:.3rem 1rem;
+}
+
+.countdown-block{
+  margin-top:2rem;
+  text-align:center;
+}
+
+@media(max-width:480px){
+  body{padding-top:72px}
+  .countdown-header{padding:.5rem .6rem}
+  .countdown-unit{padding:.3rem .4rem;min-width:42px}
 }
 
 .info-cards{
@@ -805,7 +853,15 @@ footer .copy{
 </head>
 <body>
 
-<!-- ========== 0+1. ヒーロー＋カウントダウン ========== -->
+<!-- ========== 0. 固定カウントダウンヘッダー ========== -->
+<header class="countdown-header" aria-label="投票締切カウントダウン">
+  <div class="countdown-header-inner">
+    <span class="countdown-header-label">投票締切まで</span>
+    <div id="countdown" class="countdown-timer" aria-live="polite"></div>
+  </div>
+</header>
+
+<!-- ========== 1. ヒーロー ========== -->
 <section class="hero" aria-label="ヒーロー">
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="hero-float-ring" aria-hidden="true"></div>
@@ -817,8 +873,6 @@ footer .copy{
     <p class="hero-tagline">生徒会予算を、1000万から、1400万へ。</p>
 
     <div class="countdown-block fade-in">
-      <div id="countdown" class="countdown-timer" aria-live="polite"></div>
-
       <div class="info-cards">
         <div class="info-card">
           <div class="ic-icon">📅</div>
@@ -1073,10 +1127,13 @@ footer .copy{
     var s = Math.floor((diff % 60000) / 1000);
 
     countdownEl.innerHTML =
-      '<div class="countdown-unit"><div class="countdown-num">' + pad(d) + '</div><div class="countdown-label">DAYS</div></div>' +
-      '<div class="countdown-unit"><div class="countdown-num">' + pad(h) + '</div><div class="countdown-label">HOURS</div></div>' +
-      '<div class="countdown-unit"><div class="countdown-num">' + pad(m) + '</div><div class="countdown-label">MIN</div></div>' +
-      '<div class="countdown-unit"><div class="countdown-num">' + pad(s) + '</div><div class="countdown-label">SEC</div></div>';
+      '<div class="countdown-unit"><div class="countdown-num">' + pad(d) + '</div><div class="countdown-label">Days</div></div>' +
+      '<span class="countdown-sep">:</span>' +
+      '<div class="countdown-unit"><div class="countdown-num">' + pad(h) + '</div><div class="countdown-label">Hours</div></div>' +
+      '<span class="countdown-sep">:</span>' +
+      '<div class="countdown-unit"><div class="countdown-num">' + pad(m) + '</div><div class="countdown-label">Min</div></div>' +
+      '<span class="countdown-sep">:</span>' +
+      '<div class="countdown-unit"><div class="countdown-num">' + pad(s) + '</div><div class="countdown-label">Sec</div></div>';
   }
 
   updateCountdown();
