@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>佐々木快｜N高校生徒会選挙2026 — 選挙資料（16:9）</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;800;900&family=Noto+Sans+JP:wght@300;500;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --orange:#FF6B35;
+  --orange-sub:#FFA94D;
+  --orange-bg:#FFF5EE;
+  --orange-border:#FFE4D6;
+  --ink:#1a1a1a;
+  --dim:#666;
+  --light:#999;
+  --paper:#ffffff;
+  --navy:#16213e;
+}
+
+html,body{height:100%}
+body{
+  font-family:'Inter','Noto Sans JP',sans-serif;
+  background:radial-gradient(ellipse at 50% 0%, #20202a 0%, #0d0d12 70%);
+  color:var(--ink);
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ===== 16:9 ステージ（1280×720固定をスケール） ===== */
+.stage{
+  position:absolute;
+  top:50%;left:50%;
+  width:1280px;height:720px;
+  transform-origin:center center;
+  transform:translate(-50%,-50%) scale(1);
+}
+
+.slide{
+  position:absolute;inset:0;
+  background:var(--paper);
+  border-radius:6px;
+  overflow:hidden;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .55s ease, transform .55s ease;
+  transform:scale(.985);
+}
+.slide.active{opacity:1;visibility:visible;transform:scale(1)}
+
+.pad{position:absolute;inset:0;padding:64px 76px}
+
+/* 共通クローム */
+.kicker{
+  position:absolute;top:46px;left:76px;
+  font-size:18px;font-weight:800;letter-spacing:.22em;
+  color:var(--orange);text-transform:uppercase;
+}
+.pageno{
+  position:absolute;top:46px;right:76px;
+  font-size:16px;font-weight:800;color:var(--light);
+  font-variant-numeric:tabular-nums;letter-spacing:.1em;
+}
+.brandfoot{
+  position:absolute;bottom:40px;left:76px;
+  font-size:14px;font-weight:500;color:var(--light);letter-spacing:.05em;
+}
+.accent-dot{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, var(--orange-sub), var(--orange));
+}
+
+/* 進入アニメ */
+.an{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.25,.46,.45,.94),transform .6s cubic-bezier(.25,.46,.45,.94)}
+.active .an{opacity:1;transform:none}
+.active .d1{transition-delay:.12s}
+.active .d2{transition-delay:.24s}
+.active .d3{transition-delay:.36s}
+.active .d4{transition-delay:.48s}
+.active .d5{transition-delay:.60s}
+.active .d6{transition-delay:.72s}
+
+/* ===================== S1 COVER ===================== */
+.cover{background:linear-gradient(180deg,#fff 0%,var(--orange-bg) 100%)}
+.cover .c-kick{
+  position:absolute;top:70px;left:50%;transform:translateX(-50%);
+  font-size:20px;font-weight:800;letter-spacing:.3em;color:var(--dim);
+  text-transform:uppercase;white-space:nowrap;
+}
+.cover .smash{
+  position:absolute;top:188px;left:0;right:0;text-align:center;
+  font-weight:900;line-height:.96;letter-spacing:.01em;
+}
+.cover .smash .l1{font-size:96px;color:var(--ink)}
+.cover .smash .l2{
+  display:inline-block;position:relative;
+  font-size:188px;color:var(--orange);
+  text-shadow:0 10px 40px rgba(255,107,53,.28);
+}
+.cover .smash .l2::after{
+  content:'';position:absolute;left:-12px;right:-12px;bottom:18px;height:34px;
+  background:rgba(255,107,53,.16);border-radius:8px;z-index:-1;
+  transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.25,.46,.45,.94) .35s;
+}
+.active .cover .smash .l2::after{transform:scaleX(1)}
+.cover .bolt{position:absolute;font-size:64px;color:var(--orange-sub);opacity:.85}
+.cover .bolt.b1{top:230px;left:150px;transform:rotate(-12deg)}
+.cover .bolt.b2{top:300px;right:150px;transform:rotate(10deg)}
+.cover .namepill{
+  position:absolute;bottom:118px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:baseline;gap:18px;
+  background:var(--ink);color:#fff;border-radius:999px;
+  padding:20px 48px;box-shadow:0 18px 50px rgba(0,0,0,.25);
+  white-space:nowrap;
+}
+.cover .namepill .nm{font-size:54px;font-weight:900;letter-spacing:.04em}
+.cover .namepill .rd{font-size:24px;font-weight:700;color:var(--orange-sub)}
+.cover .c-sub{
+  position:absolute;bottom:74px;left:50%;transform:translateX(-50%);
+  font-size:19px;font-weight:500;color:var(--dim);white-space:nowrap;letter-spacing:.04em;
+}
+
+/* マーキー */
+.marquee{position:absolute;left:0;right:0;overflow:hidden;white-space:nowrap}
+.marquee .track{display:inline-flex;animation:mq 18s linear infinite}
+.marquee .track span{font-weight:900;padding:0 26px}
+@keyframes mq{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* ===================== S2 概要 ===================== */
+.s-title{font-size:76px;font-weight:900;line-height:1.12;color:var(--ink)}
+.s-title .o{color:var(--orange)}
+.lead{font-size:26px;font-weight:500;color:var(--dim);line-height:1.7}
+
+.tagbig{
+  margin-top:14px;font-size:46px;font-weight:900;color:var(--ink);letter-spacing:.01em;
+}
+.tagbig .o{color:var(--orange)}
+.infowrap{position:absolute;left:76px;right:76px;bottom:96px;display:flex;gap:28px}
+.infobox{
+  flex:1;background:var(--paper);border:2px solid var(--orange-border);
+  border-radius:22px;padding:30px 34px;box-shadow:0 8px 26px rgba(255,107,53,.08);
+}
+.infobox .ic{font-size:30px;margin-bottom:10px}
+.infobox .it{font-size:20px;font-weight:800;color:var(--orange);margin-bottom:10px}
+.infobox .iv{font-size:26px;font-weight:800;color:var(--ink);line-height:1.4}
+
+/* ===================== S3 自己紹介 ===================== */
+.profile{display:grid;grid-template-columns:340px 1fr;gap:54px;align-items:center;height:100%;padding:96px 76px 90px}
+.profile .photo{
+  width:300px;height:300px;border-radius:50%;object-fit:cover;object-position:center 18%;
+  border:6px solid var(--orange-border);background:#eee;display:block;margin:0 auto 26px;
+  box-shadow:0 16px 44px rgba(0,0,0,.14);
+}
+.profile .pname{font-size:62px;font-weight:900;text-align:center;line-height:1}
+.profile .pname .rd{font-size:26px;color:var(--orange-sub);font-weight:700}
+.profile .paff{text-align:center;font-size:18px;color:var(--dim);font-weight:500;margin-top:12px}
+.profile .ptags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:20px}
+.profile .ptag{background:var(--orange-bg);color:var(--orange);font-weight:800;font-size:16px;padding:8px 18px;border-radius:999px}
+.profile .pbio p{font-size:25px;line-height:1.95;font-weight:500;color:var(--ink)}
+.profile .pbio p+p{margin-top:18px}
+.profile .pbio .hl{color:var(--orange);font-weight:800}
+
+/* ===================== S4 問題提起 ===================== */
+.prob{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;height:100%;padding:104px 76px 90px}
+.bignum{font-size:104px;font-weight:900;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+.bignum .y{color:var(--orange)}
+.cap{font-size:20px;color:var(--dim);font-weight:500;margin-top:6px}
+.grow{display:flex;align-items:center;gap:22px;margin-top:30px}
+.grow .g{font-size:40px;font-weight:900;color:var(--ink);font-variant-numeric:tabular-nums}
+.grow .ar{font-size:34px;color:var(--orange)}
+.pct{font-size:60px;font-weight:900;color:var(--orange);margin-top:14px;font-variant-numeric:tabular-nums}
+.minichart{background:var(--paper);border:1px solid #eee;border-radius:26px;padding:34px 30px 26px;box-shadow:0 8px 28px rgba(0,0,0,.05)}
+.bars{display:flex;align-items:flex-end;gap:20px;height:240px}
+.barcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end}
+.barcol .stu{width:60%;background:linear-gradient(180deg,var(--orange),var(--orange-sub));border-radius:8px 8px 0 0;transition:height .9s cubic-bezier(.25,.46,.45,.94)}
+.barcol .bud{width:60%;background:#ddd;border-radius:8px 8px 0 0}
+.barcol .lab{font-size:14px;color:var(--light);font-weight:700}
+.chart-legend{display:flex;gap:22px;margin-top:16px;font-size:14px;font-weight:700;color:var(--dim)}
+.chip-leg{display:inline-flex;align-items:center;gap:8px}
+.chip-leg i{width:16px;height:5px;border-radius:3px;display:inline-block}
+.reflect{position:absolute;left:76px;right:76px;bottom:34px;text-align:center;font-size:24px;font-weight:800;color:var(--ink)}
+
+/* ===================== S5 転換点 ===================== */
+.turning{background:linear-gradient(135deg,var(--orange-bg) 0%,#FFE9DC 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;height:100%}
+.turning .t1{font-size:64px;font-weight:800;color:var(--dim)}
+.turning .t2{font-size:118px;font-weight:900;color:var(--ink);line-height:1.1;margin-top:6px}
+.turning .t2 .o{color:var(--orange)}
+.turning .qmark{position:absolute;font-size:360px;font-weight:900;color:rgba(255,107,53,.07);line-height:1}
+
+/* ===================== S6 公約1 基金 ===================== */
+.steps3{display:flex;gap:22px;margin-top:30px;position:relative}
+.stepc{flex:1;background:var(--paper);border:1px solid #eee;border-radius:22px;padding:26px 24px;box-shadow:0 8px 24px rgba(0,0,0,.05);position:relative}
+.stepc .stepno{position:absolute;top:-16px;left:24px;width:38px;height:38px;border-radius:50%;background:var(--orange);color:#fff;font-weight:900;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(255,107,53,.35)}
+.stepc .si{font-size:30px;margin:6px 0 10px}
+.stepc h3{font-size:20px;font-weight:800;line-height:1.4;margin-bottom:8px}
+.stepc p{font-size:15px;color:var(--dim);font-weight:500;line-height:1.6}
+.stepc .amt{font-size:26px;font-weight:900;color:var(--orange);margin-top:12px;font-variant-numeric:tabular-nums}
+.fund-bottom{display:flex;gap:24px;margin-top:30px;align-items:stretch}
+.concl{flex:1;background:var(--orange);color:#fff;border-radius:24px;padding:26px 30px;display:flex;align-items:center;gap:24px;box-shadow:0 14px 36px rgba(255,107,53,.28)}
+.concl .bigpct{font-size:78px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.concl p{font-size:19px;font-weight:600;line-height:1.5}
+.budgetbox{flex:1;background:linear-gradient(135deg,#1a1a2e,var(--navy));border:2px solid var(--orange);border-radius:24px;padding:24px 30px;text-align:center;box-shadow:0 0 38px rgba(255,107,53,.18)}
+.budgetbox .bl{font-size:15px;color:var(--orange);font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.budgetbox .bc{display:flex;align-items:center;justify-content:center;gap:16px}
+.budgetbox .old{font-size:38px;font-weight:800;color:rgba(255,255,255,.45);text-decoration:line-through;text-decoration-color:rgba(255,107,53,.6)}
+.budgetbox .arr{font-size:34px;color:var(--orange)}
+.budgetbox .new{font-size:58px;font-weight:900;color:var(--orange);text-shadow:0 0 26px rgba(255,107,53,.4)}
+.budgetbox .plus{font-size:18px;color:rgba(255,255,255,.75);font-weight:700;margin-top:8px}
+
+/* ===================== S7 磁石祭 ===================== */
+.magnet{display:grid;grid-template-columns:420px 1fr;gap:56px;align-items:center;height:100%;padding:104px 76px 80px}
+.stack{display:flex;align-items:flex-end;gap:30px;justify-content:center}
+.stackbar{width:150px;display:flex;flex-direction:column-reverse;border-radius:14px 14px 0 0;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.1)}
+.sl{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:800}
+.sl-base{height:210px;background:var(--orange-bg);color:var(--ink);border:1px solid var(--orange-border)}
+.sl-fund{height:90px;background:var(--orange)}
+.sl-spon{height:58px;background:repeating-linear-gradient(135deg,var(--orange-sub),var(--orange-sub) 8px,rgba(255,169,77,.5) 8px,rgba(255,169,77,.5) 16px);border-radius:14px 14px 0 0}
+.sl .v{font-size:22px;font-variant-numeric:tabular-nums}
+.sl .n{font-size:13px;font-weight:600;opacity:.9;margin-top:2px}
+.sl-base .v{color:var(--ink)} .sl-base .n{color:var(--dim)}
+.mag-total{background:var(--paper);border:2px solid var(--orange);border-radius:22px;padding:20px 28px;display:inline-flex;align-items:baseline;gap:14px;box-shadow:0 10px 28px rgba(255,107,53,.12);margin-bottom:26px}
+.mag-total .ml{font-size:16px;color:var(--dim);font-weight:600}
+.mag-total .mn{font-size:46px;font-weight:900;color:var(--orange);font-variant-numeric:tabular-nums}
+.mag-total .mp{font-size:22px;font-weight:800;color:var(--orange-sub)}
+.mag-theme{font-size:40px;font-weight:900;color:var(--orange);line-height:1.3}
+.mag-theme .big{font-size:1.35em}
+.mag-cap{font-size:19px;color:var(--ink);font-weight:500;line-height:1.8;margin-top:18px}
+.mag-cap .o{color:var(--orange);font-weight:800}
+
+/* ===================== S8 無料化 ===================== */
+.ben-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:36px}
+.benc{background:var(--paper);border:1px solid #eee;border-radius:22px;padding:30px 18px;text-align:center;box-shadow:0 8px 26px rgba(0,0,0,.05);position:relative;overflow:hidden}
+.benc::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--orange),var(--orange-sub))}
+.benc .bi{font-size:46px;margin-bottom:14px}
+.benc .bt{font-size:18px;font-weight:800;margin-bottom:16px;line-height:1.3}
+.benc .old{font-size:20px;color:var(--light);text-decoration:line-through;text-decoration-color:var(--orange);font-variant-numeric:tabular-nums}
+.benc .arr{font-size:22px;color:var(--orange-sub);margin:2px 0}
+.benc .new{font-size:40px;font-weight:900;color:var(--orange);font-variant-numeric:tabular-nums}
+
+/* ===================== S9 監視委員 ===================== */
+.watch{height:100%;padding:104px 76px 80px}
+.w-row{display:grid;grid-template-columns:1.05fr 1fr;gap:50px;align-items:center;margin-top:26px}
+.w-cards{display:flex;gap:16px;margin-top:24px}
+.wc{flex:1;background:var(--paper);border:1px solid #eee;border-radius:18px;padding:20px 16px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.05)}
+.wc .wi{font-size:30px;margin-bottom:8px}
+.wc .wt{font-size:18px;font-weight:800;margin-bottom:6px}
+.wc .wd{font-size:13px;color:var(--dim);font-weight:500;line-height:1.5}
+.powerbars{display:flex;flex-direction:column;gap:18px}
+.prow .ph{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.prow .pn{font-size:18px;font-weight:800}
+.prow .ptag{font-size:13px;font-weight:800;background:#f0f0f0;color:var(--light);padding:3px 12px;border-radius:999px}
+.prow .ptag.stu{background:var(--orange-bg);color:var(--orange)}
+.ptrack{height:42px;background:var(--orange-bg);border:1px solid #eee;border-radius:999px;overflow:hidden}
+.pfill{height:100%;width:0;border-radius:999px;transition:width 1.1s cubic-bezier(.25,.46,.45,.94)}
+.pfill.staff{background:#dcdcdc}
+.pfill.stu{background:linear-gradient(90deg,var(--orange),var(--orange-sub));box-shadow:0 2px 12px rgba(255,107,53,.3)}
+.active .pfill.staff{width:20%}
+.active .pfill.stu{width:100%;transition-delay:.3s}
+.impo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.impo .no{position:relative;font-size:58px;font-weight:900;color:var(--light)}
+.impo .no .strike{position:absolute;top:50%;left:-10px;right:-10px;height:6px;background:var(--orange);border-radius:3px;transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.25,.46,.45,.94) .6s}
+.active .impo .no .strike{transform:scaleX(1)}
+.impo .yes{font-size:78px;font-weight:900;color:var(--orange);opacity:0;transform:translateY(10px);transition:opacity .5s ease 1.1s,transform .5s ease 1.1s}
+.active .impo .yes{opacity:1;transform:none}
+.w-closer{position:absolute;bottom:36px;left:76px;right:76px;text-align:center;font-size:26px;font-weight:900;color:var(--orange)}
+
+/* ===================== S10 CTA ===================== */
+.cta{background:linear-gradient(160deg,#fff 0%,var(--orange-bg) 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;height:100%}
+.cta .ch{font-size:74px;font-weight:900;line-height:1.16}
+.cta .ch .o{color:var(--orange)}
+.cta .csub{font-size:24px;color:var(--dim);font-weight:500;margin-top:22px}
+.cta .cname{font-size:58px;font-weight:900;margin-top:18px}
+.cta .cname .rd{font-size:24px;color:var(--orange-sub);font-weight:700}
+.cta .clinks{display:flex;gap:18px;margin-top:34px}
+.cta .cbtn{display:inline-flex;align-items:center;gap:10px;border:2px solid var(--orange);color:var(--orange);background:#fff;font-weight:800;font-size:21px;padding:16px 34px;border-radius:999px}
+.cta .cbtn.ig{background:var(--orange);color:#fff}
+.cta .cfoot{position:absolute;bottom:40px;left:0;right:0;font-size:16px;color:var(--dim);font-weight:600}
+
+/* ===== ナビUI ===== */
+.nav-hint{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.5);font-size:13px;font-weight:600;letter-spacing:.08em;z-index:30;white-space:nowrap}
+.dots{position:fixed;bottom:46px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:30}
+.dots b{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer;transition:.25s}
+.dots b.on{background:var(--orange);width:30px;border-radius:6px}
+.arrow{position:fixed;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:30;transition:.25s;user-select:none}
+.arrow:hover{background:var(--orange);border-color:var(--orange)}
+.arrow.prev{left:24px} .arrow.next{right:24px}
+.counter{position:fixed;top:22px;right:26px;color:rgba(255,255,255,.6);font-size:15px;font-weight:800;letter-spacing:.1em;font-variant-numeric:tabular-nums;z-index:30}
+.progress{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--orange),var(--orange-sub));z-index:40;transition:width .4s ease}
+
+/* モノクロ・シンプルなラインアイコン（基金 / 無料化 / 監視委員） */
+.si svg{width:42px;height:42px;display:block}
+.bi svg{width:56px;height:56px;display:inline-block}
+.wi svg{width:34px;height:34px;display:inline-block}
+.si svg,.bi svg,.wi svg{stroke:var(--ink);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ダウンロード（PDF保存）ボタン */
+.dlbtn{
+  position:fixed;top:18px;left:24px;z-index:40;
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--orange);color:#fff;border:none;
+  border-radius:999px;padding:11px 22px;
+  font-family:inherit;font-weight:800;font-size:14px;letter-spacing:.04em;
+  cursor:pointer;box-shadow:0 6px 18px rgba(255,107,53,.4);
+  transition:.2s;
+}
+.dlbtn:hover{background:#e85a28;transform:translateY(-1px)}
+
+/* ===== PNG書き出しモード（?png=N で1枚だけ1280×720全画面） ===== */
+body.png-mode{background:#fff;overflow:hidden}
+body.png-mode .dlbtn,
+body.png-mode .counter,
+body.png-mode .progress,
+body.png-mode .nav-hint,
+body.png-mode .dots,
+body.png-mode .arrow{display:none!important}
+body.png-mode .stage{position:relative;transform:none!important;top:auto;left:auto;width:1280px;height:720px;border-radius:0}
+body.png-mode .slide{border-radius:0;box-shadow:none}
+body.png-mode .slide.shown{opacity:1!important;visibility:visible!important;transform:none!important}
+body.png-mode *{transition:none!important;animation:none!important}
+
+/* ===== 印刷／PDF：全8枚を16:9で書き出す ===== */
+@media print{
+  @page{ size:13.333in 7.5in; margin:0; }
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  html,body{height:auto;overflow:visible;background:#fff}
+  .nav-hint,.dots,.arrow,.counter,.progress,.dlbtn{display:none!important}
+  .stage{position:static!important;transform:none!important;width:1280px;height:auto;top:auto;left:auto}
+  .slide{
+    position:relative!important;inset:auto!important;
+    width:1280px;height:720px;
+    opacity:1!important;visibility:visible!important;transform:none!important;
+    border-radius:0;box-shadow:none;
+    page-break-after:always;break-after:page;
+  }
+  .slide:last-child{page-break-after:auto;break-after:auto}
+  .an{opacity:1!important;transform:none!important}
+  .pfill.staff{width:20%!important}
+  .pfill.stu{width:100%!important}
+  .impo .no .strike{transform:scaleX(1)!important}
+  .impo .yes{opacity:1!important;transform:none!important}
+  .cover .smash .l2::after{transform:scaleX(1)!important}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<button class="dlbtn" id="dlbtn">⬇ PDFで保存</button>
+<div class="counter" id="counter">01 / 10</div>
+
+<div class="stage" id="stage">
+
+  <!-- ========== S1 COVER ========== -->
+  <section class="slide cover active">
+    <div class="c-kick">N 高 校 生 徒 会 選 挙 　2 0 2 6</div>
+    <div class="smash">
+      <div class="l1">N高を</div>
+      <div class="l2">ぶっ壊す</div>
+    </div>
+    <div class="namepill">
+      <span class="nm">佐々木快</span>
+      <span class="rd">（かい）</span>
+    </div>
+    <div class="c-sub">N高校 1年 ネットコース ／ 東北地区 立候補</div>
+    <div class="marquee" style="bottom:18px;background:var(--orange);padding:8px 0;color:#fff">
+      <div class="track">
+        <span>N高をぶっ壊す ⚡ 生徒会予算 1000万→1400万 ⚡ 世界初・1億円基金 ⚡&nbsp;</span>
+        <span>N高をぶっ壊す ⚡ 生徒会予算 1000万→1400万 ⚡ 世界初・1億円基金 ⚡&nbsp;</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== S3 自己紹介 ========== -->
+  <section class="slide">
+    <div class="kicker">Profile</div>
+    <div class="pageno">02</div>
+    <div class="profile">
+      <div class="an d1">
+        <img src="./iri.png" alt="佐々木快" class="photo">
+        <div class="pname">佐々木快<span class="rd">（かい）</span></div>
+        <div class="paff">N高校 1年 ネットコース ／ 東北地区立候補</div>
+        <div class="ptags">
+          <span class="ptag">#中学生徒会長</span>
+          <span class="ptag">#日本一の生徒会へ</span>
+          <span class="ptag">#前例をつくる</span>
+        </div>
+      </div>
+      <div class="pbio">
+        <p class="an d2">はじめまして。N高一年ネットコースの<b>佐々木快(かい)</b>です。中学校では<b>生徒会長</b>でした。</p>
+        <p class="an d3">生徒会長として、目安箱を利用しながら<b>校則の改訂</b>や、<b>市長への学校指定バックの廃止</b>など、<span class="hl">みんなの意見が実現する生徒会</span>を目指して行動してきました。</p>
+        <p class="an d4">今回目指すのは、<span class="hl">生徒会の予算を増やした前例を作る</span>こと と、<span class="hl">世界初の高校生基金を作って皆さんに還元する</span>こと。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== S4 問題提起 ========== -->
+  <section class="slide">
+    <div class="kicker">Problem</div>
+    <div class="pageno">03</div>
+    <div class="prob">
+      <div>
+        <h1 class="s-title an d1" style="font-size:56px">予算はずっと<br><span class="o">1000万円</span>。</h1>
+        <div class="bignum an d2" data-count="10000000" data-prefix="¥" style="margin-top:18px">¥0</div>
+        <p class="cap an d2">N高校生徒会が作られてから、予算はずっと1000万円。</p>
+        <div class="grow an d3">
+          <span class="g" data-count="22000" data-suffix="人">0人</span>
+          <span class="ar">→</span>
+          <span class="g" data-count="32000" data-suffix="人">0人</span>
+        </div>
+        <div class="pct an d3" data-count="45" data-prefix="+" data-suffix="%">+0%</div>
+        <p class="cap an d3">生徒数は増え続けている。</p>
+      </div>
+      <div class="minichart an d4">
+        <div class="bars">
+          <div class="barcol"><div class="bud" style="height:25%"></div><div class="stu" data-h="55%" style="height:0"></div><div class="lab">第1期</div></div>
+          <div class="barcol"><div class="bud" style="height:25%"></div><div class="stu" data-h="65%" style="height:0"></div><div class="lab">第2期</div></div>
+          <div class="barcol"><div class="bud" style="height:25%"></div><div class="stu" data-h="75%" style="height:0"></div><div class="lab">第3期</div></div>
+          <div class="barcol"><div class="bud" style="height:25%"></div><div class="stu" data-h="80%" style="height:0"></div><div class="lab">第4期</div></div>
+        </div>
+        <div class="chart-legend">
+          <span class="chip-leg"><i style="background:var(--orange)"></i>生徒数（増加）</span>
+          <span class="chip-leg"><i style="background:#ddd"></i>予算（横ばい）</span>
+        </div>
+      </div>
+    </div>
+    <div class="reflect an d5">「人数が増えてるのに予算がずっと同じなのは、おかしいと思った。」</div>
+  </section>
+
+  <!-- ========== S6 公約1 基金 ========== -->
+  <section class="slide">
+    <div class="kicker">公約 #1</div>
+    <div class="pageno">04</div>
+    <div class="pad" style="padding-top:96px">
+      <h1 class="s-title an d1" style="font-size:54px">世界初、<span class="o">1億円</span>の生徒会基金を作る。</h1>
+      <div class="steps3">
+        <div class="stepc an d2"><div class="stepno">1</div><div class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 8l3 4 3-4"/><path d="M12 12v5"/><path d="M9.5 13h5"/><path d="M9.5 15h5"/></svg></div><h3>企業・OBから基金を募る</h3><p>教育支援に関心のある企業・OBへ、寄付型と投資型の両面で交渉し基金を設立。</p><div class="amt" data-count="100000000" data-prefix="¥">¥0</div></div>
+        <div class="stepc an d3"><div class="stepno">2</div><div class="si"><svg viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg></div><h3>年利4%で運用</h3><p>安全性の高いインデックスファンドで長期運用。元本は取り崩さない。</p><div class="amt">年利 4%</div></div>
+        <div class="stepc an d4"><div class="stepno">3</div><div class="si"><svg viewBox="0 0 24 24"><line x1="3" y1="21" x2="21" y2="21"/><rect x="5" y="13" width="3.4" height="8"/><rect x="10.3" y="9" width="3.4" height="12"/><rect x="15.6" y="5" width="3.4" height="16"/></svg></div><h3>毎年、生徒会予算に上乗せ</h3><p>運用益だけで毎年安定的に1000万円へ追加。</p><div class="amt" data-count="4000000" data-prefix="¥">¥0</div></div>
+      </div>
+      <div class="fund-bottom">
+        <div class="concl an d5"><div class="bigpct" data-count="40" data-suffix="%">0%</div><p>運用益だけで、現在の予算の<b>40%相当</b>を毎年安定的に上乗せ。</p></div>
+        <div class="budgetbox an d6">
+          <div class="bl">生徒会予算</div>
+          <div class="bc"><span class="old">1,000万</span><span class="arr">→</span><span class="new">1,400万</span></div>
+          <div class="plus">+400万円 / 年（元本は減らない）</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== S7 磁石祭 ========== -->
+  <section class="slide">
+    <div class="kicker">具体例｜磁石祭</div>
+    <div class="pageno">05</div>
+    <div class="magnet">
+      <div class="an d1">
+        <div class="stack">
+          <div class="stackbar">
+            <div class="sl sl-spon"><span class="v">+α</span><span class="n">企業協賛</span></div>
+            <div class="sl sl-fund"><span class="v">+400万</span><span class="n">基金運用益</span></div>
+            <div class="sl sl-base"><span class="v">1,000万</span><span class="n">通常予算</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="mag-total an d2"><span class="ml">磁石祭 合計予算</span><span class="mn">1,400万</span><span class="mp">＋協賛</span></div>
+        <div class="mag-theme an d3">磁石祭は、もっと<span class="big">大きく</span>できる。</div>
+        <div class="mag-theme an d4">交通費支援も、もっと<span class="big">大きく</span>。</div>
+        <p class="mag-cap an d5">1億円の基金からの<span class="o">運用益400万円</span>が"毎年"上乗せ。さらに企業協賛が別枠で入る。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== S8 無料化 ========== -->
+  <section class="slide">
+    <div class="kicker">Benefits</div>
+    <div class="pageno">06</div>
+    <div class="pad" style="padding-top:90px">
+      <h1 class="s-title an d1" style="text-align:center">やりたいことが、<span class="o">できる</span>世界へ。</h1>
+      <div class="ben-grid">
+        <div class="benc an d2"><div class="bi"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><div class="bt">磁石祭支援</div><div class="old">¥50,000</div><div class="arr">↓</div><div class="new">¥0</div></div>
+        <div class="benc an d3"><div class="bi"><svg viewBox="0 0 24 24"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="5"/></svg></div><div class="bt">ネット部活遠征費</div><div class="old">¥20,000</div><div class="arr">↓</div><div class="new">¥0</div></div>
+        <div class="benc an d4"><div class="bi"><svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div><div class="bt">課外活動遠征費</div><div class="old">¥30,000</div><div class="arr">↓</div><div class="new">¥0</div></div>
+        <div class="benc an d5"><div class="bi"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><rect x="10" y="14" width="4" height="7"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/></svg></div><div class="bt">スクーリング宿泊交通費</div><div class="old">¥35,000</div><div class="arr">↓</div><div class="new">¥0</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== S9 公約2 監視委員 ========== -->
+  <section class="slide">
+    <div class="kicker">公約 #2</div>
+    <div class="pageno">07</div>
+    <div class="watch">
+      <h1 class="s-title an d1" style="font-size:54px">生徒会職員<span class="o">監視委員</span>を、つくる。</h1>
+      <p class="lead an d1" style="margin-top:8px">ルールも、予算も、決めるのは生徒。職員の役割は「助言」まで。</p>
+      <div class="w-cards an d2">
+        <div class="wc"><div class="wi"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div><div class="wt">監視委員</div><div class="wd">不当な介入がないか委員会が見張る</div></div>
+        <div class="wc"><div class="wi"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="wt">助言まで</div><div class="wd">職員の意見は"参考"。決定権は僕たちに。</div></div>
+        <div class="wc"><div class="wi"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><div class="wt">諦めない</div><div class="wd">「前例がない」で、止めない</div></div>
+      </div>
+      <div class="w-row">
+        <div class="powerbars an d3">
+          <div class="prow"><div class="ph"><span class="pn">職員</span><span class="ptag">助言</span></div><div class="ptrack"><div class="pfill staff"></div></div></div>
+          <div class="prow"><div class="ph"><span class="pn">生徒</span><span class="ptag stu">決定</span></div><div class="ptrack"><div class="pfill stu"></div></div></div>
+        </div>
+        <div class="impo an d4">
+          <div class="no">無理<span class="strike"></span></div>
+          <div class="yes">やれる。</div>
+        </div>
+      </div>
+    </div>
+    <div class="w-closer an d5">今のN高には変える"道すじ"がない。だから——作るのは、僕たちだ。</div>
+  </section>
+
+  <!-- ========== S10 CTA ========== -->
+  <section class="slide">
+    <div class="pageno">08</div>
+    <div class="cta">
+      <div class="ch an d1"><span class="o">世界一</span>のN高校生徒会を、<br>作ろう。</div>
+      <div class="cname an d2">佐々木快</div>
+      <div class="cfoot">投票期間：2026年6月29日(月) 〜 7月23日(木) 17:00　｜　@佐々木快 / N高校生徒会選挙 2026</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="arrow prev" id="prev">‹</div>
+<div class="arrow next" id="next">›</div>
+<div class="dots" id="dots"></div>
+<div class="nav-hint">← → / クリック / スペース でスライド切り替え　・　F で全画面</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  var cur = 0;
+  var stage = document.getElementById('stage');
+  var counter = document.getElementById('counter');
+  var progress = document.getElementById('progress');
+  var dotsWrap = document.getElementById('dots');
+
+  // dots
+  slides.forEach(function(_,i){
+    var b = document.createElement('b');
+    if(i===0) b.className='on';
+    b.addEventListener('click', function(){ go(i); });
+    dotsWrap.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function pad(n){ return (n<10?'0':'')+n; }
+
+  // ===== PNG書き出しモード（?png=N で1枚だけ全画面表示・アニメ無し） =====
+  var pngParam = new URLSearchParams(location.search).get('png');
+  if(pngParam){
+    var pidx = Math.max(0, Math.min(slides.length-1, (parseInt(pngParam,10)||1)-1));
+    document.body.classList.add('png-mode');
+    slides.forEach(function(s,i){
+      if(i===pidx){ s.classList.add('active','shown'); s.style.display='block'; }
+      else { s.style.display='none'; }
+    });
+    finalizeAll();
+    slides[pidx].querySelectorAll('.stu[data-h]').forEach(function(el){ el.style.height=el.dataset.h; });
+    return;
+  }
+
+  function fit(){
+    var s = Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform = 'translate(-50%,-50%) scale('+s+')';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+
+  // count-up
+  function countUp(el){
+    var target = parseInt(el.dataset.count,10);
+    if(isNaN(target)) return;
+    var prefix = el.dataset.prefix||'', suffix = el.dataset.suffix||'';
+    var dur = 1400, start=null;
+    function ease(t){ return 1-Math.pow(1-t,4); }
+    function step(ts){
+      if(!start) start=ts;
+      var p = Math.min((ts-start)/dur,1);
+      var v = Math.floor(ease(p)*target);
+      el.textContent = prefix + v.toLocaleString('ja-JP') + suffix;
+      if(p<1) requestAnimationFrame(step);
+      else el.textContent = prefix + target.toLocaleString('ja-JP') + suffix;
+    }
+    requestAnimationFrame(step);
+  }
+
+  function activate(i){
+    var sl = slides[i];
+    // count-up
+    sl.querySelectorAll('[data-count]').forEach(function(el){
+      if(!el.dataset.done){ el.dataset.done='1'; countUp(el); }
+    });
+    // mini bars
+    sl.querySelectorAll('.stu[data-h]').forEach(function(el){
+      el.style.height = el.dataset.h;
+    });
+  }
+
+  function go(i){
+    if(i<0) i=0; if(i>total-1) i=total-1;
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('on');
+    cur = i;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('on');
+    counter.textContent = pad(cur+1)+' / '+pad(total);
+    progress.style.width = ((cur+1)/total*100)+'%';
+    activate(cur);
+  }
+  function next(){ go(cur+1); }
+  function prev(){ go(cur-1); }
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+
+  document.addEventListener('keydown', function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); next(); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
+    else if(e.key==='Home'){ go(0); }
+    else if(e.key==='End'){ go(total-1); }
+    else if(e.key==='f'||e.key==='F'){ toggleFs(); }
+  });
+
+  // click halves of stage
+  stage.addEventListener('click', function(e){
+    var r = stage.getBoundingClientRect();
+    if(e.clientX < r.left + r.width/2) prev(); else next();
+  });
+
+  // touch swipe
+  var tx=0;
+  document.addEventListener('touchstart', function(e){ tx=e.touches[0].clientX; },{passive:true});
+  document.addEventListener('touchend', function(e){
+    var dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>50){ dx<0?next():prev(); }
+  },{passive:true});
+
+  function toggleFs(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+    else { document.exitFullscreen && document.exitFullscreen(); }
+  }
+
+  // init first slide
+  progress.style.width = (1/total*100)+'%';
+  activate(0);
+
+  // ===== PDFで保存：全スライドを最終状態にして印刷 =====
+  function finalizeAll(){
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var t = parseInt(el.dataset.count,10);
+      if(isNaN(t)) return;
+      el.textContent = (el.dataset.prefix||'') + t.toLocaleString('ja-JP') + (el.dataset.suffix||'');
+    });
+    document.querySelectorAll('.stu[data-h]').forEach(function(el){
+      el.style.height = el.dataset.h;
+    });
+  }
+  document.getElementById('dlbtn').addEventListener('click', function(){
+    finalizeAll();
+    setTimeout(function(){ window.print(); }, 60);
+  });
+})();
+</script>
+
+</body>
+</html>
